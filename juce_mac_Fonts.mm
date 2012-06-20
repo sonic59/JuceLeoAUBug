@@ -25,7 +25,7 @@
 
 #if JUCE_IOS || (JUCE_MAC && defined (MAC_OS_X_VERSION_10_5) \
                   && MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_5 \
-                  && MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5)
+                  && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
  #define JUCE_CORETEXT_AVAILABLE 1
 #endif
 
@@ -115,6 +115,15 @@ namespace CoreTextTypeLayout
 
         return ctFontRef;
     }
+
+    // Workaround for missing public Core Text APIs that are available privately in 10.5
+   #if JUCE_MAC && MAC_OS_X_VERSION_MAX_ALLOWED == MAC_OS_X_VERSION_10_5
+    extern "C"
+    {
+        void CTRunGetAdvances(CTRunRef run, CFRange range, CGSize buffer[]);
+        const CGSize* CTRunGetAdvancesPtr(CTRunRef run);
+    }
+   #endif
 
     //==============================================================================
     struct Advances
