@@ -1,0 +1,3 @@
+Workaround for Apple Font Bug that occurs when using Garageband or Logic Pro on OS X 10.6 Snow Leopard with an AU that was built using the 10.5 SDK and has a deployment target of 10.5.
+
+Oddly the bug does not appear on OS X 10.5 using the same 10.5 SDK/10.5 Deployment target build.
